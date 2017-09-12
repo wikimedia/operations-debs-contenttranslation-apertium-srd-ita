@@ -25,6 +25,9 @@
     <def-cat n="pr">
        <cat-item tags="pr"/>
     </def-cat>
+    <def-cat n="a_pr">
+       <cat-item lemma="a" tags="pr"/>
+    </def-cat>
     <def-cat n="verb">
        <cat-item tags="vbmod.*"/>
        <cat-item tags="vbser.*"/>
@@ -33,6 +36,23 @@
     </def-cat>
     <def-cat n="vbmod">
        <cat-item tags="vbmod.*"/>
+    </def-cat>
+    <def-cat n="vbhaver">
+       <cat-item tags="vbhaver.*"/>
+    </def-cat>
+    <def-cat n="vbhaver_pri">
+       <cat-item tags="vbhaver.pri.*"/>
+    </def-cat>
+    <def-cat n="vbdare_prs">
+       <cat-item lemma="dare" tags="vblex.prs.*"/>
+    </def-cat>
+    <def-cat n="torrare">
+       <cat-item lemma="torrare" tags="vblex.*"/>
+    </def-cat>
+    <def-cat n="torrare_imper-ger-pp">
+       <cat-item lemma="torrare" tags="vblex.imp.*"/>
+       <cat-item lemma="torrare" tags="vblex.ger"/>
+       <cat-item lemma="torrare" tags="vblex.pp.*"/>
     </def-cat>
     <def-cat n="vblex_inf">
        <cat-item tags="vblex.inf"/>
@@ -70,16 +90,22 @@
     <def-cat n="imper-ger-pp">
        <cat-item tags="vblex.imp.*"/>
        <cat-item tags="vblex.ger"/>
-       <cat-item tags="vblex.pp"/>
+       <cat-item tags="vblex.pp.*"/>
        <cat-item tags="vbmod.imp.*"/>
        <cat-item tags="vbmod.ger"/>
-       <cat-item tags="vbmod.pp"/>
+       <cat-item tags="vbmod.pp.*"/>
        <cat-item tags="vbser.imp.*"/>
        <cat-item tags="vbser.ger"/>
-       <cat-item tags="vbser.pp"/>
+       <cat-item tags="vbser.pp.*"/>
        <cat-item tags="vbhaver.imp.*"/>
        <cat-item tags="vbhaver.ger"/>
-       <cat-item tags="vbhaver.pp"/>
+       <cat-item tags="vbhaver.pp.*"/>
+    </def-cat>
+    <def-cat n="pp">
+       <cat-item tags="vblex.pp.*"/>
+       <cat-item tags="vbmod.pp.*"/>
+       <cat-item tags="vbser.pp.*"/>
+       <cat-item tags="vbhaver.pp.*"/>
     </def-cat>
     <def-cat n="ger">
        <cat-item tags="vblex.ger"/>
@@ -97,6 +123,9 @@
     </def-cat>
     <def-cat n="lis-pro">
        <cat-item lemma="li" tags="prn.pro.p3.mf.pl"/>
+    </def-cat>
+    <def-cat n="bi-adv">
+       <cat-item lemma="bi" tags="prn.pro.adv"/>
     </def-cat>
     <def-cat n="nche-pro">
        <cat-item lemma="nche" tags="prn.enc.adv"/>
@@ -116,7 +145,14 @@
        <cat-item tags="adj.f.*"/>
        <cat-item tags="adj.mf.*"/>
        <cat-item tags="adj.pos.*"/>
+       <cat-item tags="adj.ord.*"/>
        <cat-item tags="vblex.pp.*"/>
+    </def-cat>
+    <def-cat n="adjpos">
+       <cat-item tags="adj.pos.*"/>
+    </def-cat>
+    <def-cat n="adjord">
+       <cat-item tags="adj.ord.*"/>
     </def-cat>
     <def-cat n="adv">
        <cat-item tags="adv"/>
@@ -163,6 +199,19 @@
      <attr-item tags="vbmod"/>
      <attr-item tags="vbser"/>
      <attr-item tags="vbhaver"/>
+  </def-attr>
+  <def-attr n="a_tmp">
+     <attr-item tags="pri"/>
+     <attr-item tags="prs"/>
+     <attr-item tags="pii"/>
+     <attr-item tags="pis"/>
+     <attr-item tags="ifi"/>
+     <attr-item tags="imp"/>
+     <attr-item tags="fti"/>
+     <attr-item tags="cni"/>
+     <attr-item tags="inf"/>
+     <attr-item tags="pp"/>
+     <attr-item tags="ger"/>
   </def-attr>
   <def-attr n="a_adj">
      <attr-item tags="adj"/>
@@ -2544,6 +2593,7 @@
          <call-macro n="f_concord1">
            <with-param pos="1"/>
          </call-macro>
+<!--
          <call-macro n="f_evitar_mf1">
            <with-param pos="1"/>
          </call-macro>
@@ -2551,11 +2601,16 @@
 	    <clip pos="1" side="tl" part="a_adj"/>
 	    <lit-tag v="adj.sup"/>
 	  </let>
+-->
          <out>
-           <chunk name="adj">
+           <chunk name="preadv_adj">
              <tags>
                <tag><lit-tag v="SA"/></tag>
              </tags>
+           <lu>
+               <lit v="molto"/><lit-tag v="preadv"/>
+           </lu>
+           <b pos="1"/>
            <lu>
              <clip pos="1" side="tl" part="lemh"/>
              <clip pos="1" side="tl" part="tags"/>
@@ -2578,6 +2633,7 @@
            <with-param pos="1"/>
            <with-param pos="2"/>
          </call-macro>
+<!--
          <call-macro n="f_evitar_mf2">
            <with-param pos="2"/>
            <with-param pos="1"/>
@@ -2586,6 +2642,7 @@
 	    <clip pos="2" side="tl" part="a_adj"/>
 	    <lit-tag v="adj.sup"/>
 	  </let>
+-->
          <out>
            <chunk name="n_adj">
              <tags>
@@ -2597,6 +2654,10 @@
              <clip pos="1" side="tl" part="lemq"/>
            </lu>
            <b pos="1"/>
+           <lu>
+               <lit v="molto"/><lit-tag v="preadv"/>
+           </lu>
+           <b pos="2"/>
            <lu>
              <clip pos="2" side="tl" part="lemh"/>
              <clip pos="2" side="tl" part="tags"/>
@@ -2735,6 +2796,296 @@
        </action>
     </rule>
 
+
+<rule comment="regla: det nom pos: sa domo mea > la mia casa">
+   <pattern>
+     <pattern-item n="det"/>
+     <pattern-item n="nom"/>
+     <pattern-item n="adjpos"/>
+   </pattern>
+   <action>
+     <call-macro n="f_concord3">
+       <with-param pos="2"/>
+       <with-param pos="3"/>
+       <with-param pos="1"/>
+     </call-macro>     
+     <out>
+       <chunk name="det-pos-nom">
+         <tags>
+           <tag><lit-tag v="SN"/></tag>
+         </tags>
+       <lu>
+         <clip pos="1" side="tl" part="lemh"/>
+         <clip pos="1" side="tl" part="tags"/>
+         <clip pos="1" side="tl" part="lemq"/>
+       </lu>
+       <b pos="1"/>
+       <lu>
+         <clip pos="3" side="tl" part="lemh"/>
+         <clip pos="3" side="tl" part="tags"/>
+         <clip pos="3" side="tl" part="lemq"/>
+       </lu>
+       <b pos="2"/>
+       <lu>
+         <clip pos="2" side="tl" part="lemh"/>
+         <clip pos="2" side="tl" part="tags"/>
+         <clip pos="2" side="tl" part="lemq"/>
+       </lu>
+     </chunk>
+     </out>
+   </action>
+</rule>
+
+
+<rule comment="regla: det nom adjec pos">
+   <pattern>
+     <pattern-item n="det"/>
+     <pattern-item n="nom"/>
+     <pattern-item n="adjec"/>
+     <pattern-item n="adjpos"/>
+   </pattern>
+   <action>
+     <call-macro n="f_concord4">
+       <with-param pos="2"/>
+       <with-param pos="3"/>
+       <with-param pos="4"/>
+       <with-param pos="1"/>
+     </call-macro>     
+     <out>
+       <chunk name="det-pos-nom-adj">
+         <tags>
+           <tag><lit-tag v="SN"/></tag>
+         </tags>
+       <lu>
+         <clip pos="1" side="tl" part="lemh"/>
+         <clip pos="1" side="tl" part="tags"/>
+         <clip pos="1" side="tl" part="lemq"/>
+       </lu>
+       <b pos="1"/>
+       <lu>
+         <clip pos="4" side="tl" part="lemh"/>
+         <clip pos="4" side="tl" part="tags"/>
+         <clip pos="4" side="tl" part="lemq"/>
+       </lu>
+       <b pos="2"/>
+       <lu>
+         <clip pos="2" side="tl" part="lemh"/>
+         <clip pos="2" side="tl" part="tags"/>
+         <clip pos="2" side="tl" part="lemq"/>
+       </lu>
+       <b pos="3"/>
+       <lu>
+         <clip pos="3" side="tl" part="lemh"/>
+         <clip pos="3" side="tl" part="tags"/>
+         <clip pos="3" side="tl" part="lemq"/>
+       </lu>
+     </chunk>
+     </out>
+   </action>
+</rule>
+
+
+<rule comment="regla: det ord nom: sa de tres domos > la terza casa">
+   <pattern>
+     <pattern-item n="det"/>
+     <pattern-item n="adjord"/>
+     <pattern-item n="nom"/>
+   </pattern>
+   <action>
+     <call-macro n="f_concord3">
+       <with-param pos="3"/>
+       <with-param pos="2"/>
+       <with-param pos="1"/>
+     </call-macro>
+     <choose>
+	<when> 
+	  <test>
+	    <and>
+	      <equal><clip pos="1" side="sl" part="nbr"/><lit-tag v="sg"/></equal>
+	      <equal><clip pos="1" side="tl" part="nbr"/><lit-tag v="pl"/></equal>
+	    </and>
+	  </test>
+	  <let><clip pos="1" side="tl" part="nbr"/><lit-tag v="sg"/></let>
+	</when>
+     </choose>
+     <choose>
+	<when> 
+	  <test>
+	    <and>
+	      <equal><clip pos="1" side="sl" part="nbr"/><lit-tag v="sg"/></equal>
+	      <equal><clip pos="2" side="tl" part="nbr"/><lit-tag v="pl"/></equal>
+	    </and>
+	  </test>
+	  <let><clip pos="2" side="tl" part="nbr"/><lit-tag v="sg"/></let>
+	</when>
+     </choose>
+     <choose>
+	<when>
+	  <test>
+	    <and>
+	      <equal><clip pos="1" side="sl" part="nbr"/><lit-tag v="sg"/></equal>
+	      <equal><clip pos="3" side="tl" part="nbr"/><lit-tag v="pl"/></equal>
+	    </and>
+	  </test>
+	  <let><clip pos="3" side="tl" part="nbr"/><lit-tag v="sg"/></let>
+	</when>
+     </choose>
+     <out>
+       <chunk name="det-ord-nom">
+         <tags>
+           <tag><lit-tag v="SN"/></tag>
+         </tags>
+       <lu>
+         <clip pos="1" side="tl" part="lemh"/>
+         <clip pos="1" side="tl" part="tags"/>
+         <clip pos="1" side="tl" part="lemq"/>
+       </lu>
+       <b pos="1"/>
+       <lu>
+         <clip pos="2" side="tl" part="lemh"/>
+         <clip pos="2" side="tl" part="tags"/>
+         <clip pos="2" side="tl" part="lemq"/>
+       </lu>
+       <b pos="2"/>
+       <lu>
+         <clip pos="3" side="tl" part="lemh"/>
+         <clip pos="3" side="tl" part="tags"/>
+         <clip pos="3" side="tl" part="lemq"/>
+       </lu>
+     </chunk>
+     </out>
+   </action>
+</rule>
+
+
+
+<rule comment="regla: vbhaver_pri a inf > fti (Apo a fàghere > Farò)">
+   <pattern>
+     <pattern-item n="vbhaver_pri"/>
+     <pattern-item n="a_pr"/>
+     <pattern-item n="inf"/>
+   </pattern>
+   <action>
+     <out>
+       <chunk name="v">
+	 <tags>
+	   <tag><lit-tag v="SV"/></tag>
+	 </tags>
+       <lu>
+         <get-case-from pos="1">
+	   <clip pos="3" side="tl" part="lemh"/>
+         </get-case-from>
+	 <clip pos="3" side="tl" part="a_verb"/>
+         <lit-tag v="fti"/>
+	 <clip pos="1" side="tl" part="pers"/>
+	 <clip pos="1" side="tl" part="nbr"/>
+	 <clip pos="2" side="tl" part="lemq"/>
+       </lu>
+       </chunk>
+     </out>
+   </action>
+</rule>
+
+
+<rule comment="regla: vbdare_prs inf > fti (Dia fàghere > Farei)">
+   <pattern>
+     <pattern-item n="vbdare_prs"/>
+     <pattern-item n="inf"/>
+   </pattern>
+   <action>
+     <out>
+       <chunk name="v">
+	 <tags>
+	   <tag><lit-tag v="SV"/></tag>
+	 </tags>
+       <lu>
+         <get-case-from pos="1">
+	   <clip pos="2" side="tl" part="lemh"/>
+         </get-case-from>
+	 <clip pos="2" side="tl" part="a_verb"/>
+         <lit-tag v="cni"/>
+	 <clip pos="1" side="tl" part="pers"/>
+	 <clip pos="1" side="tl" part="nbr"/>
+	 <clip pos="2" side="tl" part="lemq"/>
+       </lu>
+       </chunk>
+     </out>
+   </action>
+</rule>
+
+
+<rule comment="regla: torrare a inf > vb di nuovo (Torrat a chircare > Cerca di nuovo)">
+   <pattern>
+     <pattern-item n="torrare"/>
+     <pattern-item n="a_pr"/>
+     <pattern-item n="inf"/>
+   </pattern>
+   <action>
+     <out>
+       <chunk name="v">
+	 <tags>
+	   <tag><lit-tag v="SV"/></tag>
+	 </tags>
+       <lu>
+         <get-case-from pos="1">
+	   <clip pos="3" side="tl" part="lemh"/>
+         </get-case-from>
+	 <clip pos="3" side="tl" part="a_verb"/>
+	 <clip pos="1" side="tl" part="a_tmp"/>
+	 <clip pos="1" side="tl" part="pers"/>
+	 <clip pos="1" side="tl" part="gen"/>
+	 <clip pos="1" side="tl" part="nbr"/>
+	 <clip pos="3" side="tl" part="lemq"/>
+       </lu>
+       <b pos="2"/>
+       <lu>
+         <lit v="di nuovo"/><lit-tag v="adv"/>
+       </lu>
+       </chunk>
+     </out>
+   </action>
+</rule>
+
+<rule comment="regla: torrare enc a inf > vb enc di nuovo (Torra·lu a chircare > Cercalo di nuovo)">
+   <pattern>
+     <pattern-item n="torrare_imper-ger-pp"/>
+     <pattern-item n="enc"/>
+     <pattern-item n="a_pr"/>
+     <pattern-item n="inf"/>
+   </pattern>
+   <action>
+     <out>
+       <chunk name="v">
+	 <tags>
+	   <tag><lit-tag v="SV"/></tag>
+	 </tags>
+       <mlu>
+         <lu>
+           <get-case-from pos="1">
+	     <clip pos="4" side="tl" part="lemh"/>
+             </get-case-from>
+	   <clip pos="4" side="tl" part="a_verb"/>
+	   <clip pos="1" side="tl" part="a_tmp"/>
+	   <clip pos="1" side="tl" part="pers"/>
+	   <clip pos="1" side="tl" part="nbr"/>
+	   <clip pos="1" side="tl" part="gen"/>
+         </lu>
+         <lu>
+           <clip pos="2" side="tl" part="lem"/>
+           <clip pos="2" side="tl" part="tags"/>
+           <clip pos="4" side="tl" part="lemq"/>
+         </lu>
+       </mlu>
+       <b pos="3"/>
+       <lu>
+         <lit v="di nuovo"/><lit-tag v="adv"/>
+       </lu>
+       </chunk>
+     </out>
+   </action>
+</rule>
+
+
 <rule comment="regla: lis verb (lis faeddo > parlo loro)">
    <pattern>
      <pattern-item n="lis-pro"/>
@@ -2798,6 +3149,70 @@
        </action>
     </rule>
 
+
+<rule comment="regla: bi + àere > ci + essere (B'at > C'è)">
+   <pattern>
+     <pattern-item n="bi-adv"/>
+     <pattern-item n="vbhaver"/>
+   </pattern>
+   <action>
+     <out>
+       <chunk name="v">
+	 <tags>
+	   <tag><lit-tag v="SV"/></tag>
+	 </tags>
+       <lu>
+         <clip pos="1" side="tl" part="lemh"/>
+         <clip pos="1" side="tl" part="tags"/>
+         <clip pos="1" side="tl" part="lemq"/>
+       </lu>
+       <b pos="1"/>
+       <lu>
+         <lit v="essere"/>
+         <lit-tag v="vbser"/>
+	 <clip pos="2" side="tl" part="a_tmp"/>
+	 <clip pos="2" side="tl" part="pers"/>
+	 <clip pos="2" side="tl" part="gen"/>
+	 <clip pos="2" side="tl" part="nbr"/>
+       </lu>
+       </chunk>
+     </out>
+   </action>
+</rule>
+
+<rule comment="regla: bi + àere + pp > ci + avere + pp">
+   <pattern>
+     <pattern-item n="bi-adv"/>
+     <pattern-item n="vbhaver"/>
+     <pattern-item n="pp"/>
+   </pattern>
+   <action>
+     <out>
+       <chunk name="v">
+	 <tags>
+	   <tag><lit-tag v="SV"/></tag>
+	 </tags>
+       <lu>
+         <clip pos="1" side="tl" part="lemh"/>
+         <clip pos="1" side="tl" part="tags"/>
+         <clip pos="1" side="tl" part="lemq"/>
+       </lu>
+       <b pos="1"/>
+       <lu>
+         <clip pos="2" side="tl" part="lemh"/>
+         <clip pos="2" side="tl" part="tags"/>
+         <clip pos="2" side="tl" part="lemq"/>
+       </lu>
+       <b pos="2"/>
+       <lu>
+         <clip pos="3" side="tl" part="lemh"/>
+         <clip pos="3" side="tl" part="tags"/>
+         <clip pos="3" side="tl" part="lemq"/>
+       </lu>
+       </chunk>
+     </out>
+   </action>
+</rule>
 
     <!-- multiparaules -->
 
@@ -2900,21 +3315,49 @@
        </action>
     </rule>
 
-    <rule comment="regla: imper-ger-pp enc enc">	<!-- eliminamos nche -->
-       <pattern>
-         <pattern-item n="imper-ger-pp"/>
-         <pattern-item n="enc"/>
-         <pattern-item n="enc"/>
-       </pattern>
-       <action>
-         <call-macro n="f_concord1">
-           <with-param pos="2"/>
-         </call-macro>     
-         <call-macro n="f_concord1">
-           <with-param pos="3"/>
-         </call-macro>     
+<rule comment="regla: imper-ger-pp enc enc">	<!-- eliminamos nche -->
+   <pattern>
+     <pattern-item n="imper-ger-pp"/>
+     <pattern-item n="enc"/>
+     <pattern-item n="enc"/>
+   </pattern>
+   <action>
+     <call-macro n="f_concord1">
+       <with-param pos="2"/>
+     </call-macro>     
+     <call-macro n="f_concord1">
+       <with-param pos="3"/>
+     </call-macro>     
+     <choose>
+       <when>
+         <test>
+           <and>
+             <equal><clip pos="2" side="sl" part="lem"/><lit v="nche"/></equal>
+             <not><equal><clip pos="3" side="tl" part="lem"/><lit v="nde"/></equal></not>
+           </and>
+        </test>
          <out>
            <chunk name="verb_enc">
+             <tags>
+               <tag><lit-tag v="SV"/></tag>
+             </tags>
+             <mlu>
+               <lu>
+                 <clip pos="1" side="tl" part="lemh"/>
+                 <clip pos="1" side="tl" part="tags"/>
+               </lu>
+               <lu>
+                 <clip pos="3" side="tl" part="lem"/>
+                 <clip pos="3" side="tl" part="tags"/>
+                 <clip pos="1" side="tl" part="lemq"/>
+               </lu>
+             </mlu>
+           </chunk>
+         </out>
+       </when>
+       <otherwise>
+         <out>
+           <chunk name="verb_enc_enc">
              <tags>
                <tag><lit-tag v="SV"/></tag>
              </tags>
@@ -2935,8 +3378,10 @@
              </mlu>
            </chunk>
          </out>
-       </action>
-    </rule>
+       </otherwise>
+     </choose>
+   </action>
+</rule>
 
     <rule comment="regla: imper-ger-pp enc nche-enc enc">	<!-- eliminamos nche -->
        <pattern>
