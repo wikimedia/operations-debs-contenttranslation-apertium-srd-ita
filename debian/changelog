@@ -1,3 +1,12 @@
+apertium-srd-ita (0.9.5~r82237-1+wmf1) jessie-wikimedia; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    + Updated dependency on apertium-srd and apertium-ita.
+  * Updated debian/copyright.
+
+ -- Kartik Mistry <kartik@debian.org>  Tue, 12 Sep 2017 10:40:24 +0530
+
 apertium-srd-ita (0.9.0~r72554-1+wmf1) jessie-wikimedia; urgency=low
 
   * Rebuild for Jessie.

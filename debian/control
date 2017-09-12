@@ -5,9 +5,9 @@ Maintainer: Debian Science Team <debian-science-maintainers@lists.alioth.debian.
 Uploaders: Tino Didriksen <tino@didriksen.cc>,
            Kartik Mistry <kartik@debian.org>
 Build-Depends: apertium-dev (>= 3.4),
-               apertium-ita (>= 0.9.0~r72553),
+               apertium-ita (>= 0.10.0~r82237),
                apertium-lex-tools,
-               apertium-srd (>= 0.9.0~r72552),
+               apertium-srd (>= 0.10.0~r82237),
                autotools-dev,
                cg3,
                debhelper (>= 9),
